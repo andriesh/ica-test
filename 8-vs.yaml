@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpbin
+  namespace: hello
+spec:
+  hosts:
+  - app.domain.com
+  gateways:
+  - istio-system/app-gateway # can omit the namespace if gateway is in same namespace as virtual service.
+  http:
+  - match:
+    - uri:
+        prefix: /hello
+    route:
+    - destination:
+        port:
+          number: 5000
+        host: helloworld

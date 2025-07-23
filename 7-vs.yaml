@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpbin
+  namespace: api
+spec:
+  hosts:
+  - app.domain.com
+  gateways:
+  - istio-system/app-gateway # can omit the namespace if gateway is in same namespace as virtual service.
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 8000
+        host: httpbin

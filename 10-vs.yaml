@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: welcome-vs
+  namespace: welcome
+spec:
+  hosts:
+  - helloworld.welcome.svc.cluster.local
+  http:
+    - match:
+      - uri:
+          prefix: "/"
+      route:
+      - destination:
+          host: helloworld.welcome.svc.cluster.local
+          subset: v1
+        weight: 70
+      - destination:
+          host: helloworld.welcome.svc.cluster.local
+          subset: v2
+        weight: 30

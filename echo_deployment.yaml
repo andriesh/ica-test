@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: echo
+  name: echo
+  namespace: echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: echo
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: ealen/echo-server
+        name: echo-server
+        resources: {}
+status: {}

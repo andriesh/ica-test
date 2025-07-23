@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: helloworld-dr
+  namespace: hello
+spec:
+  host: helloworld.hello.svc.cluster.local
+  trafficPolicy:
+#    loadBalancer:
+#      simple: LEAST_REQUEST
+  subsets:
+  - name: hello
+    labels:
+      app: helloworld
+    trafficPolicy:
+      loadBalancer:
+        simple: ROUND_ROBIN

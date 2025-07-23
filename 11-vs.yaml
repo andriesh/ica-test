@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: reviews-route
+  namespace: end-user
+spec:
+  hosts:
+  - helloworld
+  - end-user.domain.com
+  gateways:
+  - end-user-gateway
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: "kodekloud"
+    route:
+    - destination:
+        host: helloworld
+        port:
+          number: 5000
+        subset: v1
+  - route:
+    - destination:
+        host: helloworld
+        port:
+          number: 5000
+        subset: v2
+
